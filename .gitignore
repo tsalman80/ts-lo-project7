@@ -1,0 +1,13 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.pyw
+*.pyz   
+
+# Environment variables
+.env
+
+# Uploads
+uploads/
