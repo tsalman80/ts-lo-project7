@@ -64,7 +64,8 @@ def show_transform_page():
             if text_prompt:
                 msg = st.info("Generating image...")
                 image = transformer.text_to_image(text_prompt)
-                st.image(image, caption="Transformed Image")
+                # st.image(image, caption="Transformed Image")
+                st.image("https://placehold.co/400", caption="Transformed Image")
                 msg.empty()
                 msg.info("Image generated successfully")
 
@@ -79,7 +80,8 @@ def show_transform_page():
             st.image(image, caption="Uploaded Image")
             if st.button("Generate Description"):
                 msg = st.info("Generating description...")
-                text = transformer.image_to_text(image)
+                # text = transformer.image_to_text(image)
+                text = "This a an AI generated description."
                 msg.empty()
                 msg.info("Description generated successfully")
                 st.write(text)
