@@ -63,7 +63,7 @@ def show_transform_page():
         if st.button("Generate Image"):
             if text_prompt:
                 msg = st.info("Generating image...")
-                image = transformer.text_to_image(text_prompt)
+                # image = transformer.text_to_image(text_prompt)
                 # st.image(image, caption="Transformed Image")
                 st.image("https://placehold.co/400", caption="Transformed Image")
                 msg.empty()
