@@ -37,7 +37,7 @@ class ContentTransformer:
         try:
             image_bytes = io.BytesIO()
             image.save(image_bytes, format="PNG")
-            image_base64 = base64.b64encode(image_bytes.getvalue()).decode()
+            image_base64 = base64.b64encode(image_bytes.getvalue()).decode("utf-8")
 
             response = self.client.chat.completions.create(
                 model="gpt-4o-mini",
@@ -48,7 +48,16 @@ class ContentTransformer:
                     },
                     {
                         "role": "user",
-                        "content": f"Describe the image in detail {image_base64}",
+                        "content": [
+                            {
+                                "type": "text",
+                                "text": "Describe the image in detail.",
+                            },
+                            {
+                                "type": "image_url",
+                                "image_url": {"url": f"data:image/jpeg;base64,{image_base64}"},
+                            },
+                        ],
                     },
                 ],
                 max_tokens=100,

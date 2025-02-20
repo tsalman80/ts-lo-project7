@@ -11,3 +11,12 @@ __pycache__/
 
 # Uploads
 uploads/
+
+# Virtual environment
+venv/
+
+# Database
+storage/content.db
+storage/interactions.db
+storage/content_store.db
+storage/interactions_store.db

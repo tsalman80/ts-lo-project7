@@ -20,8 +20,8 @@ class ContentStore:
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             type TEXT NOT NULL,
             original_path TEXT NOT NULL,
-            transformed_path TEXT NOT NULL,
-            metadata TEXT NOT NULL,
+            data TEXT NOT NULL,
+            metadata TEXT NOT NULL,            
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         );
         
@@ -53,9 +53,9 @@ class ContentStore:
 
     def save_content(
         self,
-        type: str,
+        content_type: str,
         original_path: str,
-        transformed_path: str,
+        data: str,
         metadata: dict = None,
     ):
         """Save the content"""
@@ -68,10 +68,10 @@ class ContentStore:
 
             cursor.execute(
                 """
-            INSERT INTO content (type, original_path, transformed_path, metadata, created_at) 
+            INSERT INTO content (type, original_path, data, metadata, created_at) 
             VALUES (?, ?, ?, ?, ?)
             """,
-                (type, original_path, transformed_path, metadata, created_at),
+                (content_type, original_path, data, metadata, created_at),
             )
 
             conn.commit()
@@ -84,3 +84,17 @@ class ContentStore:
         finally:
             if conn:
                 conn.close()
+
+    def get_content(self):
+        """Get the content"""
+
+        try:
+            conn = sqlite3.connect(self.db_path)
+            cursor = conn.cursor()
+
+            cursor.execute("SELECT * FROM content")
+            content = cursor.fetchall()
+
+            return content
+        except Exception as e:
+            raise ValueError(f"Error getting content: {str(e)}")
